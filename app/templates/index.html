@@ -1,0 +1,260 @@
+{% extends 'layout.html' %}
+{% block title %}Blogg{% endblock title %}
+
+{% block body %}
+
+<!-- Cube Animation HTML -->
+<div class="container-fluid d-flex">
+    <div class="col-6 p-0">
+        <div class="header">
+            <div class="header-text">Let's you</div>
+            <div class="header-text">Start with</div>
+            <div class="header-text">your Excellence</div>
+            <div class="header-text">You have a lot of things here</div>
+            <div class="header-text">to explore.</div>
+        </div>
+        <div class="light x1"></div>
+        <div class="light x2"></div>
+        <div class="light x3"></div>
+        <div class="light x4"></div>
+        <div class="light x5"></div>
+        <div class="light x6"></div>
+        <div class="light x7"></div>
+        <div class="light x8"></div>
+        <div class="light x9"></div>
+    </div>
+    <div class="col-6 p-0 d-flex flex-column align-items-center justify-content-center" style=" position: relative; top: -20%;">
+        <div class="jumbotron text-center">
+          <!-- <h1 class="text-white" style="text-align: left;">Hi,</h1> -->
+          <h2 class=" text-white" style="text-align: left;">
+              What you create is who you are. Slick is designed for the people who have the love for excellence, believe in excellence and love to create impressive things that stand out. Here is more than 172 ready to use elegant UI blocks to start with.
+          </h2>
+            <div class="btn-group" role="group" aria-label="Category Filter" style="gap: 20px;">
+                <button type="button" class="btn btn-secondary category-btn" data-category="all">All</button>
+                <button type="button" class="btn btn-secondary category-btn" data-category="news">News</button>
+                <button type="button" class="btn btn-secondary category-btn" data-category="games">Games</button>
+                <button type="button" class="btn btn-secondary category-btn" data-category="sports">Sports</button>
+                <button type="button" class="btn btn-secondary category-btn" data-category="education">Education</button>
+                <a id="button" href="/articles" type="button" style="background-color: #fff; font-size: 12px; padding: 1px; border: none; border-radius: 15px;">➠</a>
+            </div>
+        </div>
+        <!-- <div class="text-center mt-4">
+            <a href="/articles" class="btn btn-primary">View All Articles</a>
+        </div> -->
+    </div>
+</div>
+
+<script>
+  document.querySelectorAll('.category-btn').forEach(button => {
+    button.addEventListener('click', () => {
+      const category = button.getAttribute('data-category');
+      document.querySelectorAll('.article-card').forEach(card => {
+        if (category === 'all' || card.getAttribute('data-category') === category) {
+          card.style.opacity = 1;
+          card.style.transform = 'scale(1)';
+          card.style.display = 'block';
+        } else {
+          card.style.opacity = 0;
+          card.style.transform = 'scale(0.9)';
+          setTimeout(() => {
+            card.style.display = 'none';
+          }, 300); // Match the transition duration
+        }
+      });
+    });
+  });
+</script>
+
+<style>
+body {
+    margin: 0;
+    height: 100vh;
+    font-weight: 100;
+    background: radial-gradient(#02542e,#1f1013);
+    overflow-y: hidden;
+    animation: fadeIn 1 1s ease-out;
+}
+
+button {
+    border: 2px solid white;
+    background: transparent;
+    font-family: 'Roboto', sans-serif;
+    color: white;
+    width: 250px;
+    height: 50px;
+    font-size: 2em;
+    border-radius: 5px;
+    opacity: .5;
+    transition: .3s;
+}
+#button{
+  background-color: #fff;
+    color: #2d2d2d !important;
+    font-weight: 900;
+    align-items: center;
+    display: flex;
+    position: relative;
+    right: -27%;
+    border: none !important;
+    font-size: 32px !important;
+    border-radius: 41px !important;
+    padding: 5px 13px !important;
+}
+button:hover {
+    border: 2px solid #104F55;
+    background-color: rgba(365,365,365,0.5);
+    cursor: pointer;
+    color: #104F55;
+    opacity: .8;
+    transition: .3s;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+.light {
+    position: absolute;
+    width: 0px;
+    opacity: .75;
+    background-color: white;
+    box-shadow: #e9f1f1 0px 0px 20px 2px;
+    opacity: 0;
+    top: 100vh;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    margin: auto;
+}
+
+.x1 {
+    animation: floatUp 4s infinite linear;
+    transform: scale(1.0);
+}
+
+.x2 {
+    animation: floatUp 7s infinite linear;
+    transform: scale(1.6);
+    left: 15%;
+}
+
+.x3 {
+    animation: floatUp 2.5s infinite linear;
+    transform: scale(.5);
+    left: -15%;
+}
+
+.x4 {
+    animation: floatUp 4.5s infinite linear;
+    transform: scale(1.2);
+    left: -34%;
+}
+
+.x5 {
+    animation: floatUp 8s infinite linear;
+    transform: scale(2.2);
+    left: -57%;
+}
+
+.x6 {
+    animation: floatUp 3s infinite linear;
+    transform: scale(.8);
+    left: 34%;
+}
+
+.x7 {
+    animation: floatUp 5.5s infinite linear;
+    transform: scale(1.7);
+    left: 55%;
+}
+
+.x8 {
+    animation: floatUp 4s infinite linear;
+    transform: scale(1.3);
+    left: 75%;
+}
+
+.x9 {
+    animation: floatUp 6s infinite linear;
+    transform: scale(.4);
+    left: -75%;
+}
+
+@keyframes floatUp {
+    0% { opacity: 0; top: 100vh; }
+    50% { opacity: 1; }
+    100% { opacity: 0; top: -10vh; }
+}
+
+.header {
+    position: absolute;
+    top: 20vh;
+    left: 5%;
+    text-align: left;
+}
+
+.header-text {
+    font-size: 2.5em;
+    color: white;
+    font-family: 'Roboto', sans-serif;
+    opacity: 0;
+    animation: fadeInOut 8s infinite;
+}
+
+.header-text:nth-child(2) {
+    animation-delay: .4s;
+}
+
+.header-text:nth-child(3) {
+    animation-delay: .8s;
+}
+
+.header-text:nth-child(4) {
+    animation-delay: 1s;
+}
+
+.header-text:nth-child(5) {
+    animation-delay: 1.2s;
+}
+
+@keyframes fadeInOut {
+    0%, 100% { opacity: 0; }
+    20%, 80% { opacity: 1; }
+}
+
+.jumbotron {
+    background: none;
+    margin-bottom: 0;
+    text-align: right;
+}
+
+.jumbotron .btn-group {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    transform: translateY(22%);
+}
+
+.text-center {
+    text-align: right;
+}
+
+.container-fluid {
+    display: flex;
+    height: 100vh;
+}
+
+.col-6 {
+    position: relative;
+}
+
+.article-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    padding: 20px;
+}
+
+.article-card {
+    transition: opacity 0.3s, transform 0.3s;
+}
+</style>
+
+{% endblock body %}

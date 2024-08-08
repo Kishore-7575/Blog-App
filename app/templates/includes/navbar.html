@@ -1,0 +1,26 @@
+<nav class="navbar navbar-expand-md navbar-light bg-light mb-0" style="box-shadow: 1px 1px 10px -2px;">
+  <a class="navbar-brand ml-4" style="font-weight: 600" href="/">Logo</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse justify-content-end" id="navbarCollapse">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a style="font-size: 20px; font-weight: 600;" class="nav-link" href="/about">About</a>
+      </li>
+      <li class="nav-item">
+        <a style="font-size: 20px; font-weight: 600;" class="nav-link" href="/articles">Articles</a>
+      </li>
+      {% if session['loggedIn'] %}
+      <li class="nav-item">
+        <a style="font-size: 20px; font-weight: 600;" class="nav-link" href="/logout">Logout</a>
+      </li>
+      {% endif %}
+    </ul>
+  </div>
+</nav>
+
+<style>
+
+
+</style>

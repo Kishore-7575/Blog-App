@@ -1,0 +1,63 @@
+{% extends "layout.html" %}
+{% block title %}{{session['username']}}'s Dashboard
+{% endblock title %}
+
+{% block body %}
+
+<div style="width: 15%;">
+  {% include 'includes/side_menu.html' %}
+</div>
+
+
+<!-- <div></div> -->
+ <br>
+  <a href="/addArticle" style=" margin-left: 17%;" class="btn btn-info">Add Article</a>
+  <br /><br />
+  
+  {% if articles %}
+  <table class="table table-hover" style="width: 82%; margin-left: 17%;">
+    <thead>
+      <tr>
+        <!-- <th scope="col">ID</th> -->
+        <th scope="col">Title</th>
+        <th scope="col">Author</th>
+        <th scope="col">Date</th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for article in articles %}
+      <tr>
+        <!-- <td>{{article.articleID}}</td> -->
+        <td>
+          {% if article.image %}
+            <img class="card-img-top" style="width: 100%; height: 100px; object-fit: cover;" src="{{ article.image }}" alt="Card image cap">
+          {% endif %}
+        </td>
+        <td><a href="/article/{{article.articleID}}">{{article.title}}</a></td>
+        <td>{{article.author}}</td>
+        <td>{{article.created_date}}</td>
+        <td>
+          <a href="/editArticle/{{article.articleID}}" class="btn btn-secondary"
+            ><i class="far fa-edit"></i
+          ></a>
+        </td>
+        <td>
+          <a
+            href="/deleteArticle/{{article.articleID}}"
+            class="btn btn-danger"
+            onclick="return confirm('Are you sure you want to delete this article?');"
+            ><i class="fas fa-trash"></i
+          ></a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% else %}
+
+<div class="alert alert-danger">You have no article written yet.</div>
+
+{% endif %} {% endblock body %}

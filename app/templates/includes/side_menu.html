@@ -1,0 +1,57 @@
+<!-- templates/includes/side_menu.html -->
+<div class="sidebar">
+    <div class="sidebar-header">
+      <h3>Admin Menu</h3>
+    </div>
+    <ul class="sidebar-menu">
+      <li><a href="/">Home</a></li>
+      <li><a href="{{ url_for('dashboard') }}">Dashboard</a></li>
+      <li><a href="{{ url_for('addArticle') }}">Add Article</a></li>
+      <li><a href="{{ url_for('media') }}">Media</a></li>
+      <li><a href="{{ url_for('comments') }}">Comments</a></li>
+      <li><a href="{{ url_for('categories') }}">Categories</a></li>
+      <li><a href="{{ url_for('hashtags') }}">Tags</a></li>
+      <li><a href="{{ url_for('logout') }}">Logout</a></li>
+
+    </ul>
+  </div>
+  
+  <style>
+  /* Basic styling for the sidebar */
+  .sidebar {
+    position: fixed;
+    z-index: 1199999;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 250px;
+    background-color: #282828;
+    color: #fff;
+    padding: 15px;
+    box-shadow: -11px 0 21px 0 #000;
+  }
+  
+  .sidebar-header {
+    margin-bottom: 20px;
+  }
+  
+  .sidebar-menu {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .sidebar-menu li {
+    margin: 10px 0;
+  }
+  
+  .sidebar-menu a {
+    text-decoration: none;
+    color: #fff;
+    font-size: 16px;
+  }
+  
+  .sidebar-menu a:hover {
+    color: #d3d3d3 !important;
+    text-decoration: underline;
+  }
+  </style>

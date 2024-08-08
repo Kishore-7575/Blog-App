@@ -1,0 +1,185 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+  {% if article %}
+    {{ article.title }}
+  {% else %}
+    Warning
+  {% endif %}
+{% endblock %}
+
+{% block body %}
+  {% if article %}
+  <div class="container-fluid p-4">
+    <div class="row" style="justify-content: space-around;">
+      <div class="col-md-8">
+        <h1 class="display-4">
+          {{ article.title }}
+          {% if session['username'] == article.author or session['username'] == 'admin' %}
+            <a href="/editArticle/{{ article.articleID }}" class="btn btn-secondary">
+              <i class="far fa-edit"></i>
+            </a>
+            <a href="/deleteArticle/{{ article.articleID }}" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this article?');">
+              <i class="fas fa-trash"></i>
+            </a>
+          {% endif %}
+        </h1>
+        <hr class="my-4" />
+        <div class="content">
+          {{ article.content|safe }}
+        </div>
+      </div>
+      <div class="col-md-3">
+        <h4>Related Articles in {{ article.category }}</h4>
+        <div id="articles" class="article-grid row row-cols-1 g-1" style="display: contents;">
+          {% for related_article in related_articles %}
+          <div class="col" style="margin: 21px 0; padding: 0; box-shadow: 0px 0px 20px -12px;">
+            <a href="/article/{{ related_article.articleID }}" class="side-content text-decoration-none">
+              <div class="card article-card" style="transition: all 0.3s ease; opacity: 1; transform: scale(1);">
+                {% if related_article.image %}
+                  <img class="card-img-top" style="height: 100%; object-fit: cover;" src="{{ related_article.image }}" alt="Card image cap">
+                {% endif %}
+                <div class="card-body" style="position: relative; background: #ffffff; border-radius: 4px;">
+                  <h5 class="card-title text-dark" style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; width: 100%;">{{ related_article.title }}</h5>
+                  <p class="card-text text-dark" style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; width: 100%;">{{ related_article.declaration }}</p>
+                  <p class="card-text" style="color: #dfdfdf;"><small>Last updated {{ related_article.updated_date }}</small></p>
+                </div>
+              </div>
+            </a>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  <!-- Author Card Section -->
+  <div class="author-card" style="display: flex; align-items: center; border: 1px solid #ddd; padding: 20px; margin-top: 30px; border-radius: 10px; width: 60%;">
+    <!-- Left Container for Image -->
+    <div class="author-image" style="flex: 0 0 150px;">
+      <img src="https://queensite.us/wp-content/litespeed/avatar/a1dc5e038faf5aca865c3e43c82923e4.jpg?ver=1722113967" alt="Author Image" style="width: 100%; border-radius: 50%;">
+    </div>
+    <!-- Right Container for Details -->
+    <div class="author-details" style="flex: 1; margin-left: 20px;">
+      <h5 style="margin: 0;">Admin</h5>
+      <p style="margin: 5px 0;">y'all! This here's Alexander Park, straight outta Queens, New York. I ain't no basic tourist, nah nah. I'm talkin' top dog solo travel blogger, been globetrottin' all over Europe, the UAE, even across the good ol' US of A. I put my adventures down in fire blogs, sparkin' a fire in other peeps to get out there and see the world. Currently crashin' at 201 West 87th Street, yeah, that's right in the heart of NYC, baby!</p>
+      <!-- Social Icons -->
+      <div class="author-social-icons" style="margin-top: 10px;">
+        <a href="https://queensite.us" target="_blank" style="margin-right: 15px;">
+          <i class="fa fa-globe" aria-hidden="true" style="font-size: 24px;"></i>
+        </a>
+        <a href="mailto:support@queensite.us" target="_blank">
+          <i class="fa fa-envelope" aria-hidden="true" style="font-size: 24px;"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+  
+    <!-- Comment Section -->
+    <div class="comments mt-5">
+      <h4>Comments</h4>
+      <div class="comments-list">
+        {% for comment in comments %}
+          <div class="comment">
+            <p><strong>{{ comment.name }}</strong> ({{ comment.email }})</p>
+            <p>{{ comment.comment }}</p>
+            <small>{{ comment.created_date }}</small>
+            <hr>
+          </div>
+        {% endfor %}
+      </div>
+
+      <div class="comment-form mt-4 pb-5" style="width: 40% !important;">
+        <h4>Leave a Comment</h4>
+        <form method="post">
+          {{ form.hidden_tag() }}
+          <div class="form-group">
+            {{ form.name.label }}
+            {{ form.name(class="form-control") }}
+          </div>
+          <div class="form-group">
+            {{ form.email.label }}
+            {{ form.email(class="form-control") }}
+          </div>
+          <div class="form-group">
+            {{ form.comment.label }}
+            {{ form.comment(class="form-control") }}
+          </div>
+          <div class="form-group">
+            {{ form.submit(class="btn btn-primary") }}
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  {% else %}
+    <div class="container">
+      <div class="alert alert-warning">There is no such article.</div>
+    </div>
+  {% endif %}
+{% endblock %}
+
+<style>
+  .comments {
+    margin-top: 50px;
+  }
+  
+  .comments-list .comment {
+    margin-bottom: 20px;
+    padding: 10px;
+    background-color: #f8f9fa;
+    border-radius: 5px;
+  }
+  
+  .comment-form {
+    margin-top: 30px;
+  }
+  
+  .comment-form .form-group {
+    margin-bottom: 15px;
+  }
+  </style>
+
+<!-- Add this CSS in your style section or CSS file -->
+<style>
+  .author-card {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ddd;
+    padding: 20px;
+    margin-top: 30px;
+    border-radius: 10px;
+    /* width: 60%; */
+  }
+  .author-image {
+    flex: 0 0 150px;
+  }
+  .author-image img {
+    width: 100%;
+    border-radius: 50%;
+  }
+  .author-details {
+    flex: 1;
+    margin-left: 20px;
+  }
+  .author-details h5 {
+    margin: 0;
+  }
+  .author-details p {
+    margin: 5px 0;
+  }
+  .author-social-icons {
+    margin-top: 10px;
+  }
+  .author-social-icons a {
+    margin-right: 15px;
+    color: inherit;
+    text-decoration: none;
+  }
+  .author-social-icons a:hover {
+    color: #007bff;
+  }
+  .fa-globe, .fa-envelope {
+    font-size: 24px;
+  }
+</style>
+
+  

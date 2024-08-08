@@ -1,0 +1,45 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+  Comments
+{% endblock %}
+
+{% block body %}
+<div class="container">
+  <h1 class="mt-4">Comments</h1>
+  <div class="table-responsive">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+            <th scope="col"></th>
+          <th scope="col"></th>
+          <th scope="col"></th>
+          <th scope="col"></th>
+          <th scope="col"></th>
+          <th scope="col"></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for comment in comments %}
+        <tr>
+            <td>
+              {% if comment.image %}
+                <img src="{{ comment.image }}" alt="Article image" style="width: 100px;">
+              {% else %}
+                No image
+              {% endif %}
+            </td>
+            <td>{{ comment.title }}</td>
+            <td>{{ comment.category }}</td>
+          <td>{{ comment.name }}</td>
+          <td>{{ comment.email }}</td>
+          <td>{{ comment.comment }}</td>
+          <td>{{ comment.created_date }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

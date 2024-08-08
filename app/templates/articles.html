@@ -1,0 +1,163 @@
+{% extends 'layout.html' %}
+{% block title %}Articles{% endblock title %}
+
+{% block body %}
+<div class="container-fluid p-5">
+  {% if articles %}
+  <div class="container-fluid p-0 mb-4" style="display: flex; justify-content: space-between; padding: 0;">
+    <div class="mb-3">
+      <!-- <a href="/addArticle" class="btn btn-dark">Add Article</a> -->
+    </div>
+    <form action="/searchArticle" method="POST" class="mb-4">
+      <div class="input-group">
+        <input type="text" name="keyword" class="form-control" maxlength="64" placeholder="Search for articles"/>
+        <button type="submit" class="btn btn-dark">Go</button>
+      </div>
+    </form>
+  </div>
+  
+  <div class="row">
+    {% for article in articles %}
+    <div class="col-12 col-md-6 col-lg-4 mb-4" style="flex: 0 0 24.90%;">
+      <a href="/article/{{ article.articleID }}" class="text-decoration-none" style="color: #000;">
+        <div class="card h-100" style="position: relative; border: none; box-shadow: 0px 1px 16px 0px; border-radius: 4px;">
+          {% if article.image %}
+          <img class="card-img-top" style="width: 100%; height: 200px; object-fit: cover;" src="{{ article.image }}" alt="Card image cap">
+          {% endif %}
+          <div class="card-body" style="position: relative; background: #ffffff; border-radius: 4px;">
+            <h5 style="color: #000000 !important; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; width: 100%;">{{ article.title }}</h5>
+            <p class="card-text" style="color: #141414; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; width: 100%;">
+              {{ article.declaration }}
+            </p>
+            <p class="card-text" style="color: #484848;"><small>Last updated {{ article.created_date }}</small></p>
+          </div>
+          <span class="ribbon"><b>{{ article.category }}</b></span>
+        </div>
+      </a>
+    </div>
+    {% endfor %}
+  </div>
+
+  {% else %}
+  <div class="alert alert-warning mt-4">This blog has no articles yet.</div>
+  {% endif %}
+</div>
+
+<style>
+  @import url('https://fonts.googleapis.com/css?family=Montserrat:700');
+
+  body {
+    position: relative;
+    min-height: 100vh;
+    overflow: hidden;
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+
+  .cube {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border: solid 1px rgba(0, 0, 0, 0.2);
+    transform-origin: top left;
+    transform: scale(0) rotate(0deg) translate(-50%, -50%);
+    animation: cube 12s ease-in forwards infinite;
+  }
+  
+  .cube:nth-child(2n) {
+    border-color: rgb(129, 124, 134);
+  }
+  
+  .cube:nth-child(2) {
+    animation-delay: 0.2s;
+    left: 25vw;
+    top: 40vh;
+  }
+  
+  .cube:nth-child(3) {
+    animation-delay: 2s;
+    left: 75vw;
+    top: 50vh;
+  }
+  
+  .cube:nth-child(4) {
+    animation-delay: 4s;
+    left: 90vw;
+    top: 10vh;
+  }
+  
+  .cube:nth-child(5) {
+    animation-delay: 6s;
+    left: 10vw;
+    top: 85vh;
+  }
+  
+  .cube:nth-child(6) {
+    animation-delay: 8s;
+    left: 50vw;
+    top: 10vh;
+  }
+
+  @keyframes cube {
+    from {
+      transform: scale(0) rotate(0deg) translate(-50%, -50%);   
+      opacity: 1;
+    }
+    to {
+      transform: scale(20) rotate(960deg) translate(-50%, -50%); 
+      opacity: 0;
+    }
+  }
+
+  .article-card {
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+  
+  .card {
+    position: relative;
+  }
+
+  .ribbon {
+    position: absolute;
+    top: 10px;
+    left: -1px;
+    width: auto;
+    padding: 0 10px;
+    height: 30px;
+    background: #343a40;
+    text-align: center;
+    line-height: 30px;
+    color: white;
+    font-weight: bold;
+    transform: rotate(-45deg);
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(-45deg);
+    -ms-transform: rotate(-45deg);
+    -o-transform: rotate(-45deg);
+    z-index: 1;
+  }
+
+  .ribbon::after {
+    content: "";
+    position: absolute;
+    bottom: -0px;
+    border: 15.5px solid #343a40;
+    z-index: -1;
+  }
+
+  .ribbon::after {
+    right: -16px;
+    border-right-color: transparent;
+  }
+</style>
+
+<!-- Add the cubes for the animation -->
+<div class="cube"></div>
+<div class="cube"></div>
+<div class="cube"></div>
+<div class="cube"></div>
+<div class="cube"></div>
+<div class="cube"></div>
+
+{% endblock body %}

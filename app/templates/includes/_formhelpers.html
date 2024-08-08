@@ -1,0 +1,13 @@
+{% macro render_field(field) %}
+  <div class="form-group">
+    {{ field.label(class="form-label") }}
+    {{ field(**kwargs) }}
+    {% if field.errors %}
+      <div class="invalid-feedback">
+        {% for error in field.errors %}
+          <div>{{ error }}</div>
+        {% endfor %}
+      </div>
+    {% endif %}
+  </div>
+{% endmacro %}

@@ -1,0 +1,59 @@
+{% extends 'layout.html' %}
+{% block title %}Add Article{% endblock title %}
+
+{% block body %}
+
+<div style="width: 15%;">
+
+  {% include 'includes/side_menu.html' %}
+</div>
+
+<div style="width: 82%; margin-left: 17%;">
+  {% from "includes/_formhelpers.html" import render_field %}
+  {{ ckeditor.load() }}
+  {{ ckeditor.config(name='content', upload_url=url_for('upload_image')) }}
+  <h3>Add Article</h3>
+  <hr/>
+  
+  <form method="post" enctype="multipart/form-data" style="display: flex; gap: 20px;">
+    <div class="p-4 content-detail" style="width: 70%;">
+      {{ render_field(form.title, class='form-control') }}
+      {{ render_field(form.content, class='form-control') }}
+      <div class="button">
+        <button type="submit" class="btn btn-primary">Add Article</button>
+      </div>
+    </div>
+    <div class="p-4 form-content" style="width: 30%;">
+      {{ render_field(form.image, class='form-control') }}
+      {{ render_field(form.declaration, class='form-control') }}
+      {{ render_field(form.category, class='form-control', placeholder="Enter a category") }}
+      {{ render_field(form.hashtags, class='form-control', placeholder="e.g. #technology, #trading") }}
+    </div>
+  </form>
+</div>
+{% endblock body %}
+
+<style>
+.content-detail, .form-content {
+  background: #f8f9fa;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.content-detail .form-control, .form-content .form-control {
+  margin-bottom: 20px;
+}
+
+.button {
+  text-align: right;
+}
+
+.form-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-content .form-control {
+  flex: 1;
+}
+</style>

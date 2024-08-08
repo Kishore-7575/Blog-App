@@ -1,0 +1,91 @@
+{% extends 'layout.html' %}
+{% block title %}Media{% endblock title %}
+
+{% block body %}
+<div style="width: 15%;">
+    {% include 'includes/side_menu.html' %}
+  </div>
+<div class="container mt-5" style="width: 82%; margin-left: 17%;">
+  <h3>Media Gallery</h3>
+  <div id="action-buttons" class="mb-4" style="display: none; text-align: right;">
+    <button id="delete-button" class="btn btn-danger">Delete</button>
+    <button id="update-button" class="btn btn-primary">Update</button>
+    <input type="file" id="file-input" style="display: none;">
+  </div>
+  <div class="row">
+    {% for image in images %}
+    <div class="col-12 col-md-6 col-lg-4 mb-4">
+      <div class="card h-100">
+        <div class="card-img-overlay p-0" style="text-align: right;">
+          <input type="checkbox" class="image-checkbox" data-image="{{ image }}" style="margin: 10px;">
+        </div>
+        <img class="card-img-top" src="{{ image }}" alt="Image" style="height: 200px; object-fit: cover;">
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+<script>
+document.querySelectorAll('.image-checkbox').forEach(checkbox => {
+  checkbox.addEventListener('change', () => {
+    const selectedImages = document.querySelectorAll('.image-checkbox:checked');
+    document.getElementById('action-buttons').style.display = selectedImages.length > 0 ? 'block' : 'none';
+  });
+});
+
+document.getElementById('delete-button').addEventListener('click', () => {
+  const selectedImages = Array.from(document.querySelectorAll('.image-checkbox:checked')).map(checkbox => checkbox.dataset.image);
+  if (selectedImages.length > 0 && confirm('Are you sure you want to delete the selected images?')) {
+    fetch('/deleteImages', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ images: selectedImages })
+    }).then(response => response.json()).then(data => {
+      if (data.success) {
+        location.reload();
+      } else {
+        alert('Failed to delete images: ' + data.message);
+      }
+    }).catch(error => {
+      console.error('Error during fetch operation:', error);
+      alert('Failed to delete images due to a server error.');
+    });
+  }
+});
+
+document.getElementById('update-button').addEventListener('click', () => {
+  const selectedImages = Array.from(document.querySelectorAll('.image-checkbox:checked')).map(checkbox => checkbox.dataset.image);
+  if (selectedImages.length === 1) {
+    document.getElementById('file-input').click(); // Trigger file input
+  } else {
+    alert('Please select exactly one image to update');
+  }
+});
+
+document.getElementById('file-input').addEventListener('change', function() {
+  const file = this.files[0];
+  if (file) {
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('oldImage', document.querySelector('.image-checkbox:checked').dataset.image);
+
+    fetch('/updateImage', {
+      method: 'POST',
+      body: formData
+    }).then(response => response.json()).then(data => {
+      if (data.success) {
+        location.reload();
+      } else {
+        alert('Failed to update image: ' + data.message);
+      }
+    }).catch(error => {
+      console.error('Error during file upload:', error);
+      alert('Failed to update image due to a server error.');
+    });
+  }
+});
+</script>
+{% endblock body %}

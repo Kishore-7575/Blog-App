@@ -1,0 +1,117 @@
+body {
+  font-size: 17px;
+}
+
+.navbar{
+  z-index: 10000;
+  margin-top: 0px;
+  position: sticky;
+  top: 0px;
+  width: 100%;
+}
+
+.jumbotron {
+  background-color: transparent;
+  height: 531px;
+}
+.lead-text{
+  /* margin: 2rem 22rem; */
+  color: #ffffffb3 !important;
+} 
+
+img {
+  object-fit: contain;
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+}
+
+.navbar-brand {
+  font-size: 23px;
+}
+
+.nav-item {
+  font-size: 20px !important;
+  transition: all .15s ease-in-out;
+}
+
+.nav-item:hover {
+  transform: scale(1.1);
+}
+
+.container {
+  margin-bottom: 30px;
+}
+/* .container-fluid{
+  padding-bottom: 85px !important;
+} */
+
+footer > .container {
+  margin-bottom: 0px;
+}
+
+footer {
+  position: fixed ;
+  bottom: 0;
+  width: 100%;
+  background-color: #fff;
+  box-shadow: 0px 2px 9px 2px #000;
+  color: white;
+}
+
+.category-btn{
+  background: transparent;
+  border: 1px solid #fff;
+  border-radius: 16px !important;
+}
+.category-btn:hover{
+  background: #fff;
+  color: #000;
+  border-radius: 16px !important;
+}
+.footer-icon {
+  color: #a3a3a3;
+  font-size: 28px;
+  text-decoration: none;
+  transition: all 0.15s ease-in-out;
+}
+
+.footer-icon:hover {
+  transform: scale(1.45);
+}
+
+.fa-github:hover {
+  color: rgb(0, 0, 0);
+}
+
+.fa-linkedin-in:hover {
+  color: #0a66c2;
+}
+
+.fa-twitter:hover {
+  color: #2b8bf2;
+}
+
+.fa-instagram:hover {
+  color: #aa39a3;
+}
+
+.fa-facebook-f:hover {
+  color: #1196f5;
+}
+
+.fa-youtube:hover {
+  color: #ff0000;
+}
+
+
+a:hover {
+  color: #000 !important;
+  text-decoration: none !important;
+}
+a:hover > .card{
+  width: 97% !important;
+  height: 97% !important;
+}
+

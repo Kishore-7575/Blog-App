@@ -1,0 +1,57 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+  Categories
+{% endblock %}
+
+{% block body %}
+<h1 class="mt-4 mx-5 mb-5">Categories</h1>
+<div class="container-fluid" style="width: 100%;
+display: flex;
+gap: 6%;
+padding: 0 50px;">
+    
+    <!-- Form to add a new category -->
+    <div class="form" style="width: 30%;">
+         <form action="{{ url_for('add_category') }}" method="POST">
+         <div class="mb-3">
+           <label for="categoryName" class="form-label">New Category Name</label>
+           <input type="text" class="form-control" id="categoryName" name="categoryName" required>
+         </div>
+         <div class="mb-3">
+           <label for="description" class="form-label">Description</label>
+           <textarea class="form-control" id="description" name="description"></textarea>
+         </div>
+         <button type="submit" class="btn btn-primary">Add Category</button>
+       </form>
+     </div>
+
+  <!-- Display existing categories -->
+  <div class="form" style="width: 70%;">
+
+    <div class="table-responsive mt-4">
+        <table class="table table-striped">
+        <thead>
+            <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Description</th>
+            <th scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for category in categories %}
+            <tr>
+            <td>{{ category.name }}</td>
+            <td>{{ category.description }}</td>
+            <td>
+                <a href="{{ url_for('delete_category', category_id=category.id) }}" class="btn btn-sm btn-danger">Delete</a>
+            </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+        </table>
+    </div>
+</div>
+
+</div>
+{% endblock %}

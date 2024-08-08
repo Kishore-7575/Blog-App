@@ -1,0 +1,48 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+  Hashtags
+{% endblock %}
+
+{% block body %}
+<div class="container">
+  <h1 class="mt-4">Hashtags</h1>
+  
+  <!-- Form to add a new hashtag -->
+  <form action="{{ url_for('add_hashtag') }}" method="POST">
+    <div class="mb-3">
+      <label for="hashtagName" class="form-label">New Hashtag Name</label>
+      <input type="text" class="form-control" id="hashtagName" name="hashtagName" required>
+    </div>
+    <div class="mb-3">
+      <label for="description" class="form-label">Description</label>
+      <textarea class="form-control" id="description" name="description"></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Add Hashtag</button>
+  </form>
+
+  <!-- Display existing hashtags -->
+  <div class="table-responsive mt-4">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">Name</th>
+          <th scope="col">Description</th>
+          <th scope="col">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for hashtag in hashtags %}
+        <tr>
+          <td>{{ hashtag.name }}</td>
+          <td>{{ hashtag.description }}</td>
+          <td>
+            <a href="{{ url_for('delete_hashtag', hashtag_id=hashtag.id) }}" class="btn btn-sm btn-danger">Delete</a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}
